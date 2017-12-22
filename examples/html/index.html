@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/cowhite.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -26,7 +27,12 @@
 
         <li><a href="#show-items" id='show-items'>Show Items</a></li>
         <li><a href="#!" id='add-item' class='btn-show-form btn-show-submit-form'
-    data-url="assets/data/new_item_form.html" data-submit-url="assets/data/success_response.json">Add Item</a></li>
+    data-url="assets/data/new_item_form.html" data-submit-url="assets/data/success_response.json"
+    data-form-id="add-item-form">Add Item</a></li>
+        <li><a href="#!" id='add-item-in-popup' class='btn-show-form btn-show-submit-form form-in-popup'
+    data-url="assets/data/new_item_form.html" data-submit-url="assets/data/success_response.json">Add Item in Popup</a></li>
+        <li><a href="#!" id='delete-test' class='btn-action btn-action-delete'
+    data-url="assets/data/delete_success.json" data-request-type='DELETE'>Delete sample</a></li>
 
 
       </ul>
@@ -42,6 +48,7 @@
             <h1>Show Items:</h1>
             <div id='show-items-content'></div>
         </div>
+        <div id="add-item-form"></div>
 
 <!--         <div id='add-item-section' class='each-section hide'>
             <h1>Add Item:</h1>
@@ -76,6 +83,9 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<script type="text/javascript">
+    var csrfmiddlewaretoken = "sometoken";
+</script>
 <script type="text/javascript" src="assets/lib/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="assets/js/cowhite.js"></script>

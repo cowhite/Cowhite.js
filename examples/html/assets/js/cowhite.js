@@ -1,3 +1,4 @@
+
 function switchTab(tab) {
   console.log("Switchingggg tab to "+tab);
   var url, $section;
@@ -70,19 +71,23 @@ var submitForm = function($this){
     }else{
       modal.find(".btn.btn-primary").data("btn-show-form-id", $this.attr('id'));
     }
+
+    if($this.hasClass("form-in-popup")) {
+      formContentId = $this.data("form-id");
+    }else{
+      formContentId = modal.find(".modal-body");
+    }
+    form = modal.find(".modal-body form");
+
     if(showFormBtnId){
         url = $showFormBtn.data('submit-url'),
         id = showFormBtnId,
-        form = modal.find(".modal-body form"),
-        formContentId = modal.find(".modal-body"),
         afterSuccess = $showFormBtn.data('aftersuccess'),
         type = "POST";
     }else{
         url = $this.data('url'),
         id = $this.data('id'),
-        form = modal.find(".modal-body form"),
 
-        formContentId = modal.find(".modal-body"),
         afterSuccess = $this.data('aftersuccess'),
         type = "GET";
     }
@@ -134,5 +139,30 @@ $(function(){
   $(document).on("click",".btn-show-submit-form", function(){
       submitForm($(this));
   });
+
+  $(document).on("click", ".btn-action", function(){
+    var $this = $(this),
+      url = $this.data("url"),
+      requestType = $this.data("request-type"),
+      data = {"csrfmiddlewaretoken": csrfmiddlewaretoken };
+
+    if($this.hasClass("btn-action-delete")) {
+      var confirmDelete = confirm("Are you sure want to delete ?");
+      if(!confirmDelete) { return; }
+    }
+
+    if(!requestType) {
+      requestType = "GET";
+    }
+
+
+    $.ajax({
+      url: url,
+      type: requestType,
+      success: function(res) {
+        $this.remove();
+      }
+    });
+  })
 
 });
