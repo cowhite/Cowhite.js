@@ -1,6 +1,23 @@
 .form-row {
     margin-top: 10px;
 }
-.btn-action-delete {
-    color: red !important;
+.tac {
+  text-align: center;
+}
+h1 span {
+  border-bottom: 3px solid green;
+}
+.item {
+  border: 1px solid #a1a1a1;
+  padding: 10px;
+}
+.item-text {
+  font-size: 2rem;
+}
+.big-msg {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-size: 4rem;
+    color: #888888;
 }

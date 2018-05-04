@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Cowhite.js by Cowhite Software</title>
     <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/cowhite.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -25,14 +25,11 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
 
-        <li><a href="#show-items" id='show-items'>Show Items</a></li>
-        <li><a href="#!" id='add-item' class='btn-show-form btn-show-submit-form'
-    data-url="assets/data/new_item_form.html" data-submit-url="assets/data/success_response.json"
-    data-form-id="add-item-form">Add Item</a></li>
-        <li><a href="#!" id='add-item-in-popup' class='btn-show-form btn-show-submit-form form-in-popup'
-    data-url="assets/data/new_item_form.html" data-submit-url="assets/data/success_response.json">Add Item in Popup</a></li>
-        <li><a href="#!" id='delete-test' class='btn-action btn-action-delete'
-    data-url="assets/data/delete_success.json" data-request-type='DELETE'>Delete sample</a></li>
+        <li><a href="#items" id='show-items'>Show Items</a></li>
+        <li><a href="javascript:;" id='add-item' class='btn-show-form btn-show-submit-form'
+    data-url="assets/data/new_item_form.html" data-submit-url="http://localhost:8004/api/v1/items/"
+    data-form-id="add-item-form" data-aftersuccess='refreshItems'>Add Item</a></li>
+        <li><a href="#documentation" id='documentation'>Documentation</a></li>
 
 
       </ul>
@@ -42,27 +39,24 @@
   </div><!-- /.container-fluid -->
 </nav>
 <div class='container'>
+    <h1 class='tac'><span>Cowhite.js by Cowhite Software</span></h1>
 
     <div>
-        <div id='show-items-section' class='each-section hide' data-url="/assets/data/items_list.html">
-            <h1>Show Items:</h1>
-            <div id='show-items-content'></div>
+        <div id='items-section' class='each-section hide' data-url="http://localhost:8004/api/v1/items/"
+          data-callback="loadItemsCallback"
+        >
+            <h1><span>Items:</span></h1>
+            <div id='items-content'></div>
         </div>
+
+        <div id='documentation-section' class='each-section hide' data-url="/assets/data/documentation.html"
+
+        >
+            <div id='documentation-content'></div>
+        </div>
+
         <div id="add-item-form"></div>
 
-<!--         <div id='add-item-section' class='each-section hide'>
-            <h1>Add Item:</h1>
-            <div class='add-item-form-container'>
-                <form class='add-item-form'>
-                    <div class='add-item-content'>
-
-                    </div>
-                    <div>
-                        <a href="#" class='btn btn-primary '>Submit</a>
-                    </div>
-                </form>
-            </div>
-        </div> -->
     </div>
 </div>
 
@@ -86,8 +80,39 @@
 <script type="text/javascript">
     var csrfmiddlewaretoken = "sometoken";
 </script>
+<script type="text/template" id="item-template">
+  <div class='row item' data-id="ITEM_ID">
+    <div class='col-md-6'>
+      <div class='item-text'>ITEM</div>
+    </div>
+    <div class='col-md-6'>
+      <a href="javascript:;"  class='btn btn-danger btn-action btn-action-delete'
+    data-url="http://localhost:8004/api/v1/items/ITEM_ID/" data-request-type='DELETE'
+    data-aftersuccess='refreshItems'>Delete</a>
+    </div>
+  </div>
+</script>
 <script type="text/javascript" src="assets/lib/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="assets/js/cowhite.js"></script>
+<script type="text/javascript">
+
+  function refreshItems(){
+    switchTab("items");
+  }
+  function loadItemsCallback(res){
+    var html = "", $itemHtml = $("#item-template"), itemHtml;
+    for(var i=0; i<res.results.length; i++){
+      itemHtml = $itemHtml.html().replace(/ITEM_ID/g, res.results[i].id).replace(
+        /ITEM/g, res.results[i].name);
+      html += itemHtml;
+    }
+    if(!res.results.length){
+      html += "<div class='big-msg'>No items yet.</div>"
+    }
+    $("#items-content").html(html);
+
+  }
+</script>
 </body>
 </html>
