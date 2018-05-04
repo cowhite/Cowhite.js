@@ -1,3 +1,10 @@
+/*!
+  * Cowhite.js v0.1
+  * Copyright 2018 Cowhite Software Pvt Ltd
+  * Github: https://github.com/cowhite/Cowhite.js
+  * Licensed under MIT (https://github.com/cowhite/Cowhite.js/LICENSE)
+  */
+
 function switchTab(tab) {
   console.log("Switching tab to "+tab);
   var url, $section, callback;
