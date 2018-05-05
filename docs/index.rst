@@ -13,6 +13,7 @@ Welcome to Cowhite.js's documentation!
    overview
    installation
    usage
+   events
 
 
 
