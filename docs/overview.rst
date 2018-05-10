@@ -1,6 +1,9 @@
 Overview
 ========
 
+Cowhite.js allows to build single page applications easily using jquery as dependency.
+
+
 Requirements
 ------------
 Jquery
@@ -10,4 +13,4 @@ Features
 
 - Build single page applications easily
 - Submit forms easily
-- Btn actions (delete easily without writing much code)
+- Button actions (delete easily without writing much code)
